@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCoreJwtTokenAuth", "EntityFrameworkCoreJwtTokenAuth\EntityFrameworkCoreJwtTokenAuth.csproj", "{8A75C6BB-7774-4843-9F02-2DEDC2D855D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServices", "WebServices", "{1C7A1AC9-3A98-4794-BB64-CCBB4D914A1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A75C6BB-7774-4843-9F02-2DEDC2D855D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A75C6BB-7774-4843-9F02-2DEDC2D855D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A75C6BB-7774-4843-9F02-2DEDC2D855D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A75C6BB-7774-4843-9F02-2DEDC2D855D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A75C6BB-7774-4843-9F02-2DEDC2D855D1} = {1C7A1AC9-3A98-4794-BB64-CCBB4D914A1E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {624A943E-6761-4A73-A322-75B31B80BA39}
+	EndGlobalSection
+EndGlobal
