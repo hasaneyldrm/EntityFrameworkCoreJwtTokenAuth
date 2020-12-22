@@ -43,7 +43,6 @@ namespace EntityFrameworkCoreJwtTokenAuth.Utilities
             }
         }
 
-
         public static string Decrypt(string decryptValue)
         {
             byte[] data = Convert.FromBase64String(s: decryptValue);
