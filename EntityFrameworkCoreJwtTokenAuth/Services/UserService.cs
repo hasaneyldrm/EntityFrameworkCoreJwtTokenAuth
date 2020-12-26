@@ -84,77 +84,35 @@ namespace EntityFrameworkCoreJwtTokenAuth.Services
 
             if (user == null) return null;
 
-
-            if (!CheckUserCondition(user.Id))
+            var IpExist = _memCache.TryGetValue(user.Id, out List<string> userIpList);
+            if (!IpExist)
             {
-                throw new ArgumentException("Logged in with more than one IP address. Please contact your administrator.");
+                userIpList = new List<string>();
+                userIpList.Add(ipAddress);
             }
-
-
-            RefreshToken refreshToken = generateRefreshToken(ipAddress, user.Id.ToString());
-
-            var jwtToken = GenerateJwtToken(user);
-
-            _memCache.Set(refreshToken.Token, user, TimeSpan.FromHours(10));
-
-            return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
-        }
-
-        private List<string> GetAllKeysList()
-        {
-            var field = typeof(MemoryCache).GetProperty(name: "EntriesCollection", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-            if (field is { })
+            else
             {
-                var collection = field.GetValue(obj: _memCache) as ICollection;
-                var items = new List<string>();
-                if (collection != null)
-                    foreach (var item in collection)
-                    {
-                        var methodInfo = item.GetType().GetProperty(name: "Key");
-                        if (methodInfo is { })
-                        {
-                            var val = methodInfo.GetValue(obj: item);
-                            if (val != null) items.Add(item: val.ToString());
-                        }
-                    }
-                return items;
-            }
-
-            return null;
-        }
-
-        private bool CheckUserCondition(int userId)
-        {
-            var allKeys = GetAllKeysList();
-            var condition = true;
-            var userIpList = new List<string>();
-            foreach (var tokens in allKeys)
-            {
-                var decrytedToken = HashCode.Decrypt(decryptValue: tokens);
-                var splittedToken = decrytedToken.Split(separator: '|');
-
-
-                var ip = splittedToken.First();
-                string id;
-                id = splittedToken[1];
-
-                if (id == userId.ToString())
+                var isIpUsed = userIpList.FirstOrDefault(a => a == ipAddress);
+                if (String.IsNullOrEmpty(isIpUsed) && userIpList.Count == 3)
                 {
-                    if (!userIpList.Contains(item: ip))
-                    {
-                        userIpList.Add(item: ip);
-                    }
-
-                    if (userIpList.Count == 3)
-                    {
-                        condition = false;
-                        break;
-
-                    }
+                    throw new ArgumentException(
+                        "Logged in with more than " + userIpList.Count + " IP addresses. Please contact your administrator.");
+                }
+                else
+                {
+                    userIpList.Add(ipAddress);
                 }
             }
 
-            return condition;
+            _memCache.Set(user.Id, userIpList, TimeSpan.FromHours(10));
+
+
+            var refreshToken = generateRefreshToken(ipAddress, user.Id.ToString());
+
+            var jwtToken = GenerateJwtToken(user);
+            // save refresh token
+            _memCache.Set(refreshToken.Token, user, TimeSpan.FromHours(10));
+            return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
         }
 
         public AuthenticateResponse RefreshToken(string token, string ipAddress)

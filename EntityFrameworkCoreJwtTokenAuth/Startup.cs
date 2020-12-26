@@ -49,6 +49,8 @@ namespace EntityFrameworkCoreJwtTokenAuth
 
             #endregion
 
+            #region Cors
+
             services.AddCors(setupAction: o => o.AddPolicy(name: "MyPolicy", configurePolicy: builder =>
             {
                 builder.AllowAnyOrigin()
@@ -56,6 +58,7 @@ namespace EntityFrameworkCoreJwtTokenAuth
                     .AllowAnyHeader();
             }));
 
+            #endregion
             var appSettingsSection = Configuration.GetSection(key: "AppSettings");
             services.Configure<AppSettings>(config: appSettingsSection);
             services.AddMemoryCache();

@@ -4,8 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>hasaneyldrm</Authors>
-    <Product>EntityFramework.Core.Jwt.Token.Auth</Product>
+    <Product>EntityFramework Core Jwt Token Auth</Product>
     <Description>JWT Token system template with EntityFramework Core on ASP.NET Core Web API.</Description>
+    <PackageId>Entity.Framework.Core.Jwt.Token.Auth</PackageId>
+    <Company>HubShou</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hasaneyldrm/EntityFrameworkCoreJwtTokenAuth</RepositoryUrl>
+    <PackageTags>EntityFrameworkCore, Jwt, Token, Auth</PackageTags>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
